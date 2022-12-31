@@ -9,6 +9,6 @@ const connection = mysql.createConnection({
     password: process.env.DB_PASS
 })
 
-connection.query("select * from movies", function(err, results)  {
+connection.query("select * from department", function(err, results)  {
     console.log(results);
 });
