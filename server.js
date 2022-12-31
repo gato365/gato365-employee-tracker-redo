@@ -1,6 +1,6 @@
-
+const { prompt } = require('inquirer');
 const express = require('express');
-
+const db = require("./db");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -26,6 +26,84 @@ app.use(express.json());
 // Output: NA
 // Notes: NA
 // -----------------Function Definitions--------------------
+
+function mainPrompt() {
+    prompt([
+        {
+            type: "list",
+            name: "choice",
+            message: "What would you like to do?",
+            choices: [
+                {
+                    name: "View All Employees",
+                    value: "VIEW_EMPLOYEES"
+                },
+                {
+                    name: "View All Department",
+                    value: "VIEW_DEPARTMENT"
+                },
+                {
+                    name: "View All Roles",
+                    value: "VIEW_ROLES"
+                },
+                {
+                    name: "Add Employee",
+                    value: "ADD_EMPLOYEE"
+                },
+                {
+                    name: "Add Department",
+                    value: "ADD_DEPARTMENT"
+                },
+                {
+                    name: "Add Role",
+                    value: "ADD_ROLE"
+                },
+                {
+                    name: "Update Employee Role",
+                    value: "UPDATE_EMPLOYEE_ROLE"
+                },
+                {
+                    name: "Quit",
+                    value: "QUIT"
+                }
+            ]
+        }
+    ]).then(res => {
+        let choice = res.choice;
+
+        switch (choice) {
+            case "VIEW_EMPLOYEES":
+                viewAllEmployees();
+                break;
+            case "VIEW_EMPLOYEES":
+                viewAllEmployees();
+                break;
+            case "VIEW_EMPLOYEES":
+                viewAllEmployees();
+                break;
+            case "VIEW_EMPLOYEES":
+                viewAllEmployees();
+                break;
+            case "VIEW_EMPLOYEES":
+                viewAllEmployees();
+                break;
+            case "VIEW_EMPLOYEES":
+                viewAllEmployees();
+                break;
+            case "VIEW_EMPLOYEES":
+                viewAllEmployees();
+            break;
+            default:
+            quit();
+
+
+
+        }
+    });
+
+
+
+}
 
 
 function getDepartment() {
@@ -58,13 +136,13 @@ app.post("/api/add-department", (req, res) => {
 })
 
 // Update
-app.get("/api/department/:id/employee",(req,res) => {
-    const { id }  = req.params;
-    
+app.get("/api/department/:id/employee", (req, res) => {
+    const { id } = req.params;
+
     connection.query("select * from employee WHERE role_id =?", role_id,
-     function (err, results) {
-        res.json(results);
-    });
+        function (err, results) {
+            res.json(results);
+        });
 
 })
 
