@@ -14,15 +14,19 @@ class DB {
         
     }
     //2. viewRole: Role
-    findAllRole(){
+    findAllRoles(){
         return this.connection.promise().query( 
             "SELECT * from role") ;
         
     }
     //3. viewEmployee
-    findAllEmployee(){
+    findAllEmployees(){
         return this.connection.promise().query( 
-            "SELECT * from employee ") ;
+            "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;"
+
+            
+            
+            ) ;
         
     }
     //4. addDepartment
@@ -39,7 +43,7 @@ class DB {
     //6. addEmployee
     createEmployee(employee){
         return this.connection.promise().query( 
-            "INSERT * from employee ") ;
+            "INSERT INTO employee SET ?", employee) ;
     }
 
 }
