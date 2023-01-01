@@ -7,18 +7,29 @@ class DB {
 
     //1. Department
     findAllDepartments() {
-        return this.connection.query(
-            "SELECT * from department;");
+
+
+        // return this.connection.Promise.query(
+        //     "SELECT * from department;");
+
+        return new Promise((resolve) => { // Question 2: Why is there not are reject?
+            connection.query("select * from department", function (err, results) {
+                resolve(results);
+                // console.log(results);
+            });
+        });
+
+
     }
     //2. Role
     findAllRoles() {
-        return this.connection.query(
+        return this.connection.promise.query(
             "SELECT * from role;");
 
     }
     //3. Employee
     findAllEmployees() {
-        return this.connection.query(
+        return this.connection.promise.query(
             "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;"
         );
 
