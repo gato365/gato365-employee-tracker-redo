@@ -1,17 +1,18 @@
 const { prompt } = require('inquirer');
+const DB = require('./db');
 
-const db = require("./db");
+// const db = require("./db");
 
-
+let db = new DB;
 
 
 
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
 // Date Created: 12/31/2022
-// Date Modified: 12/31/2022
-// Name: getDepartment
-// Purpose: Gets Department info
+// Date Modified: 1/01/2023
+// Name: mainPrompt
+// Purpose: Asks questions to user about company
 // Input: NA
 // Output: NA
 // Notes: NA
@@ -25,20 +26,16 @@ function mainPrompt() {
             message: "What would you like to do?",
             choices: [
                 {
-                    name: "View All Employees",
-                    value: "VIEW_EMPLOYEES"
-                },
-                {
                     name: "View All Department",
-                    value: "VIEW_DEPARTMENT"
+                    value: "VIEW_DEPARTMENTS"
                 },
                 {
                     name: "View All Roles",
                     value: "VIEW_ROLES"
                 },
                 {
-                    name: "Add Employee",
-                    value: "ADD_EMPLOYEE"
+                    name: "View All Employees",
+                    value: "VIEW_EMPLOYEES"
                 },
                 {
                     name: "Add Department",
@@ -47,6 +44,10 @@ function mainPrompt() {
                 {
                     name: "Add Role",
                     value: "ADD_ROLE"
+                },
+                {
+                    name: "Add Employee",
+                    value: "ADD_EMPLOYEE"
                 },
                 {
                     name: "Update Employee Role",
@@ -61,32 +62,31 @@ function mainPrompt() {
     ]).then(res => {
         let choice = res.choice;
 
+        // Based on Users Choice
         switch (choice) {
-            case "VIEW_EMPLOYEES":
-                viewAllEmployees();
+            case "VIEW_DEPARTMENTS":
+                viewAllDepartments();
+                break;
+            case "VIEW_ROLES":
+                viewAllRoles();
                 break;
             case "VIEW_EMPLOYEES":
                 viewAllEmployees();
                 break;
-            case "VIEW_EMPLOYEES":
-                viewAllEmployees();
+            case "ADD_DEPARTMENT":
+                addDepartment();
                 break;
-            case "VIEW_EMPLOYEES":
-                viewAllEmployees();
+            case "ADD_ROLE":
+                addRole();
                 break;
-            case "VIEW_EMPLOYEES":
-                viewAllEmployees();
+            case "ADD_EMPLOYEE":
+                addEmployee();
                 break;
-            case "VIEW_EMPLOYEES":
-                viewAllEmployees();
-                break;
-            case "VIEW_EMPLOYEES":
-                viewAllEmployees();
+            case "UPDATE_EMPLOYEE_ROLE":
+                updateEmployee();
                 break;
             default:
                 quit();
-
-
 
         }
     });
@@ -94,6 +94,20 @@ function mainPrompt() {
 
 
 }
+
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 01/01/2023
+// Date Modified: 01/01/2023
+// Name: quit
+// Purpose: quits out of prompt
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
+function quit () {
+//    return prompt.ui.close
+  }
 
 function viewAllEmployees() {
     db.findAllEmployees().then(([rows]) => {
@@ -131,9 +145,9 @@ function addEmployee() {
                 choices: roleChoices
             }).then(res => {
                 let roleId = res.roleId;
-                db.findAllEmployees().then(([rows]) =>{
+                db.findAllEmployees().then(([rows]) => {
                     let employee = rows;
-                    const managerChoices = employees.map(({id,first_name,last_name}) =>({
+                    const managerChoices = employees.map(({ id, first_name, last_name }) => ({
                         name: `${first_name} ${last_name}`,
                         value: id
                     }));
@@ -148,14 +162,14 @@ function addEmployee() {
                         choices: managerChoices
                     }).then(res => {
                         let employee = {
-                             manager_id: res.managerId,
-                             role_id: roleId,
-                             first_name: firstname,
-                             last_name: lastname
+                            manager_id: res.managerId,
+                            role_id: roleId,
+                            first_name: firstname,
+                            last_name: lastname
                         }
                         db.createEmployee(employee);
-                    }).then(() => 
-                    console.log(`Added ${ firstname} ${lastname} to the database`)
+                    }).then(() =>
+                        console.log(`Added ${firstname} ${lastname} to the database`)
                     ).then(() => mainPrompt)
                 })
             })
