@@ -109,12 +109,65 @@ function quit () {
 //    return prompt.ui.close
   }
 
+
+  // -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 01/01/2023
+// Date Modified: 01/01/2023
+// Name: viewAllDepartments
+// Purpose: Displays all departments
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
+function viewAllDepartments() {
+    db.findAllDepartments().then(([rows]) => {
+        let departments = rows;
+        console.table(departments)
+    }).then(() => mainPrompt())
+}
+
+
+
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 01/01/2023
+// Date Modified: 01/01/2023
+// Name: viewAllRoles
+// Purpose: Displays all roles
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
+function viewAllRoles() {
+    db.findAllRoles().then(([rows]) => {
+        let roles = rows;
+        console.table(roles)
+    }).then(() => mainPrompt())
+}
+
+
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 12/31/2022
+// Date Modified: 01/01/2023
+// Name: viewAllEmployees
+// Purpose: Displays all employees
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
 function viewAllEmployees() {
     db.findAllEmployees().then(([rows]) => {
         let employees = rows;
         console.table(employees)
     }).then(() => mainPrompt())
 }
+
+
+
+
+
 
 
 function addEmployee() {

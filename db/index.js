@@ -1,4 +1,4 @@
-const connection = require('./connection');
+const connection = require('../config/connection');
 
 class DB {
     constructor(connection) {
@@ -6,7 +6,7 @@ class DB {
     }
 
     //1. Department
-    findAllDepartment() {
+    findAllDepartments() {
         return this.connection.query(
             "SELECT * from department;");
     }
