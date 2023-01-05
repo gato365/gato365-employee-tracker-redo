@@ -109,22 +109,40 @@ function quit () {
 //    return prompt.ui.close
   }
 
-
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 01/05/2023
+// Date Modified: 01/05/2023
+// Name: addDepartment
+// Purpose: adds new department
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
   function addDepartment(){
     // Add the name
     prompt([
         {
             name: "name",
-            message: "What is the new dept name?",
+            message: "What is the new department name?",
         }
     ]).then(async (res)=>{
-       let frank = await db.createDepartment(res);
-       console.log(frank)
+       let newDept = await db.createDepartment(res);
+       console.log(newDept)
     });
   }
 
 
-
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 01/05/2023
+// Date Modified: 01/05/2023
+// Name: addRole
+// Purpose: adds new role
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
   function addRole(){
     // Add the name
     prompt([
@@ -141,8 +159,8 @@ function quit () {
             message: "What department does the role belong to?",
         }
     ]).then(async (res)=>{
-       let frank = await db.createDepartment(res);
-       console.log(frank)
+       let roleInfo = await db.createRole(res);
+       console.log(roleInfo)
     });
   }
 
