@@ -124,6 +124,28 @@ function quit () {
   }
 
 
+
+  function addRole(){
+    // Add the name
+    prompt([
+        {
+            name: "title",
+            message: "What is the name of new role?",
+        },
+        {
+            name: "salary",
+            message: "What is the new role's salary?",
+        },   
+        {
+            name: "department_id",
+            message: "What department does the role belong to?",
+        }
+    ]).then(async (res)=>{
+       let frank = await db.createDepartment(res);
+       console.log(frank)
+    });
+  }
+
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
 // Date Created: 01/01/2023
