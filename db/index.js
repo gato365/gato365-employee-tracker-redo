@@ -59,6 +59,19 @@ class DB {
 
     //5. Add Role
     createRole(role) {
+        return new Promise((resolve) => {
+            connection.query("INSERT INTO role SET ?", role, 
+            function (err, results) {
+                if(err) throw err
+                console.log(results)
+                resolve(results);
+            });
+        }); 
+    }
+
+
+
+    createRole(role) {
         return this.connection.promise().query(
             "INSERT INTO role SET ?", role);
     }
