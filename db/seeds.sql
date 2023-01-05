@@ -14,9 +14,9 @@ INSERT INTO role (id, title, salary, department_id) VALUES
 
 -- Employees Table 
 INSERT INTO employee (id, first_name,  last_name, role_id,  manager_id) VALUES
+(3, "Susan", "Williams", 4, null),
 (1, "James", "Williams", 1,3),
 (2, "Jennifer", "Williams", 2,1),
-(3, "Susan", "Williams", 4,2),
 (4, "Ola", "Williams", 1,3);
 
 

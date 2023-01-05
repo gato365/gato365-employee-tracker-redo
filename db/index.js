@@ -46,9 +46,15 @@ class DB {
 
     }
     //4. Add Department
-    createDepartment(department) {
-        return this.connection.promise().query(
-            "INSERT INTO department SET ?", department);
+     createDepartment(department) {
+        return new Promise((resolve) => {
+            connection.query("INSERT INTO department SET ?", department, 
+            function (err, results) {
+                if(err) throw err
+                console.log(results)
+                resolve(results);
+            });
+        }); 
     }
 
     //5. Add Role

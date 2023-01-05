@@ -110,6 +110,20 @@ function quit () {
   }
 
 
+  function addDepartment(){
+    // Add the name
+    prompt([
+        {
+            name: "name",
+            message: "What is the new dept name?",
+        }
+    ]).then(async (res)=>{
+       let frank = await db.createDepartment(res);
+       console.log(frank)
+    });
+  }
+
+
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
 // Date Created: 01/01/2023
