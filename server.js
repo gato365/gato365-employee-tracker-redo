@@ -121,7 +121,7 @@ function quit () {
 // Notes: NA
 // -----------------Function Definitions--------------------
 function viewAllDepartments() {
-    db.findAllDepartments().then(([rows]) => {
+    db.findAllDepartments().then((rows) => {
         let departments = rows;
         console.table(departments)
     }).then(() => mainPrompt())
@@ -140,7 +140,7 @@ function viewAllDepartments() {
 // Notes: NA
 // -----------------Function Definitions--------------------
 function viewAllRoles() {
-    db.findAllRoles().then(([rows]) => {
+    db.findAllRoles().then((rows) => {
         let roles = rows;
         console.table(roles)
     }).then(() => mainPrompt())
@@ -158,7 +158,7 @@ function viewAllRoles() {
 // Notes: NA
 // -----------------Function Definitions--------------------
 function viewAllEmployees() {
-    db.findAllEmployees().then(([rows]) => {
+    db.findAllEmployees().then((rows) => {
         let employees = rows;
         console.table(employees)
     }).then(() => mainPrompt())

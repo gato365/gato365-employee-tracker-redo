@@ -10,6 +10,7 @@ class DB {
 
         return new Promise((resolve) => { // Question 2: Why is there not are reject?
             connection.query("select * from department", function (err, results) {
+                
                 resolve(results);
             });
         });
