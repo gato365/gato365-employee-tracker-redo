@@ -71,11 +71,6 @@ class DB {
 
 
 
-    createRole(role) {
-        return this.connection.promise().query(
-            "INSERT INTO role SET ?", role);
-    }
-
     //6. Add Employee
     createEmployee(employee) {
         return this.connection.promise().query(

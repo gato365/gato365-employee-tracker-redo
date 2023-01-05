@@ -129,7 +129,7 @@ function quit () {
     ]).then(async (res)=>{
        let newDept = await db.createDepartment(res);
        console.log(newDept)
-    });
+    }).then(() => mainPrompt())
   }
 
 
@@ -161,7 +161,7 @@ function quit () {
     ]).then(async (res)=>{
        let roleInfo = await db.createRole(res);
        console.log(roleInfo)
-    });
+    }).then(() => mainPrompt());
   }
 
 // -----------------Function Definitions--------------------
@@ -179,6 +179,9 @@ function viewAllDepartments() {
         let departments = rows;
         console.table(departments)
     }).then(() => mainPrompt())
+
+
+      
 }
 
 
