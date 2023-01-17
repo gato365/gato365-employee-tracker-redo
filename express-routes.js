@@ -27,7 +27,7 @@ app.get("/api/departments", (req, res) => {
     });
 });
 
-// Post
+// Add
 app.post("/api/add-department", (req, res) => {
     const { name } = req.body;
     connection.query("INSERT INTO department(name) values (?)  ", name, (err, result) => {
@@ -37,15 +37,13 @@ app.post("/api/add-department", (req, res) => {
 
 })
 
-// Update
+// Update Based on id
 app.get("/api/department/:id/employee", (req, res) => {
     const { id } = req.params;
-
     connection.query("select * from employee WHERE role_id =?", role_id,
         function (err, results) {
             res.json(results);
         });
-
 })
 
 // Default response for any other request (Not Found)

@@ -31,12 +31,15 @@ class DB {
     //3. Employee
     findAllEmployees() {
         // queryStr1 = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;"
-        // queryStr2 = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id;"
+        // const queryStr2 = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id;"
 
-        const queryStr3 = "select * from employee;"
+        // const queryStr3 = "select * from employee;"
+
+        const queryStr4 = "select * from employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id;"
+
 
         return new Promise((resolve) => { // Question 2: Why is there not are reject?
-            connection.query(queryStr3, function (err, results) {
+            connection.query(queryStr4, function (err, results) {
                 resolve(results);
             });
         });
