@@ -10,7 +10,7 @@ class DB {
 
         return new Promise((resolve) => { // Question 2: Why is there not are reject?
             connection.query("select * from department", function (err, results) {
-                
+
                 resolve(results);
             });
         });
@@ -30,14 +30,13 @@ class DB {
     }
     //3. Employee
     findAllEmployees() {
+        // queryStr1 = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;"
+        // queryStr2 = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id;"
 
-
-
-        queryStr1 = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;"
-        queryStr2 = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id;"
+        const queryStr3 = "select * from employee;"
 
         return new Promise((resolve) => { // Question 2: Why is there not are reject?
-            connection.query(queryStr2, function (err, results) {
+            connection.query(queryStr3, function (err, results) {
                 resolve(results);
             });
         });
@@ -46,27 +45,27 @@ class DB {
 
     }
     //4. Add Department
-     createDepartment(department) {
+    createDepartment(department) {
         return new Promise((resolve) => {
-            connection.query("INSERT INTO department SET ?", department, 
-            function (err, results) {
-                if(err) throw err
-                console.log(results)
-                resolve(results);
-            });
-        }); 
+            connection.query("INSERT INTO department SET ?", department,
+                function (err, results) {
+                    if (err) throw err
+                    console.log(results)
+                    resolve(results);
+                });
+        });
     }
 
     //5. Add Role
     createRole(role) {
         return new Promise((resolve) => {
-            connection.query("INSERT INTO role SET ?", role, 
-            function (err, results) {
-                if(err) throw err
-                console.log(results)
-                resolve(results);
-            });
-        }); 
+            connection.query("INSERT INTO role SET ?", role,
+                function (err, results) {
+                    if (err) throw err
+                    console.log(results)
+                    resolve(results);
+                });
+        });
     }
 
 
