@@ -35,7 +35,7 @@ class DB {
 
         // const queryStr3 = "select * from employee;"
 
-        const queryStr4 = "select employee.id as employee_ids, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title, department.name AS department, role.salary CONCAT(manager.first_name, ' ', manager.last_name) AS manager from employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;"
+        const queryStr4 = "select employee.id as employee_ids, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title, department.name AS department, role.salary from employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id"
 
 
         return new Promise((resolve) => { // Question 2: Why is there not are reject?
