@@ -23,7 +23,7 @@ function viewAllDepartments() {
     }).then(() => mainPrompt())
 
 
-      
+
 }
 
 // -----------------Function Definitions--------------------
@@ -76,7 +76,7 @@ function viewAllEmployees() {
 // -----------------Function Definitions--------------------
 
 function mainPrompt() {
-    prompt([
+    return prompt([
         {
             type: "list",
             name: "choice",
@@ -162,9 +162,9 @@ function mainPrompt() {
 // Output: NA
 // Notes: NA
 // -----------------Function Definitions--------------------
-function quit () {
-   mainPrompt.ui.close();
-  }
+function quit() {
+    process.exit();
+}
 
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
@@ -176,50 +176,64 @@ function quit () {
 // Output: NA
 // Notes: NA
 // -----------------Function Definitions--------------------
-  function addDepartment(){
+function addDepartment() {
     // Add the name
     prompt([
         {
             name: "name",
             message: "What is the new department name?",
         }
-    ]).then(async (res)=>{
-       let newDept = await db.createDepartment(res);
-       console.log(newDept)
+    ]).then(async (res) => {
+        let newDept = await db.createDepartment(res);
+        console.log(newDept)
     }).then(() => mainPrompt())
-  }
+}
 
 
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
 // Date Created: 01/05/2023
-// Date Modified: 01/05/2023
+// Date Modified: 01/18/2023
 // Name: addRole
 // Purpose: adds new role
 // Input: NA
 // Output: NA
 // Notes: NA
 // -----------------Function Definitions--------------------
-  function addRole(){
+function addRole() {
     // Add the name
-    prompt([
-        {
-            name: "title",
-            message: "What is the name of new role?",
-        },
-        {
-            name: "salary",
-            message: "What is the new role's salary?",
-        },   
-        {
-            name: "department_id",
-            message: "What department does the role belong to?",
-        }
-    ]).then(async (res)=>{
-       let roleInfo = await db.createRole(res);
-       console.log(roleInfo)
-    }).then(() => mainPrompt());
-  }
+
+    db.findAllDepartments().then((rows) => {
+        let departments = rows;
+        console.log(departments);
+        departments = departments.map((item) =>
+        ({
+            value: item.id,
+            name: item.name
+        }))
+
+        console.log(departments);
+        prompt([
+            {
+                name: "title",
+                message: "What is the name of new role?",
+            },
+            {
+                name: "salary",
+                message: "What is the new role's salary?",
+            },
+            {
+                name: "department_id",
+                type: 'list',
+                message: "What department does the role belong to?",
+                choices: departments
+            }
+        ]).then(async (res) => {
+            let roleInfo = await db.createRole(res);
+            console.log(roleInfo)
+        }).then(() => mainPrompt())
+    });
+}
 
 
 
