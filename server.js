@@ -6,6 +6,63 @@ const DB = require('./db');
 let db = new DB;
 
 
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 01/01/2023
+// Date Modified: 01/01/2023
+// Name: viewAllDepartments
+// Purpose: Displays all departments
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
+function viewAllDepartments() {
+    db.findAllDepartments().then((rows) => {
+        let departments = rows;
+        console.table(departments)
+    }).then(() => mainPrompt())
+
+
+      
+}
+
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 01/01/2023
+// Date Modified: 01/01/2023
+// Name: viewAllRoles
+// Purpose: Displays all roles
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
+function viewAllRoles() {
+    db.findAllRoles().then((rows) => {
+        let roles = rows;
+        console.table(roles)
+    }).then(() => mainPrompt())
+}
+
+
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 12/31/2022
+// Date Modified: 01/01/2023
+// Name: viewAllEmployees
+// Purpose: Displays all employees
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
+function viewAllEmployees() {
+    db.findAllEmployees().then((rows) => {
+        let employees = rows;
+        console.table(employees)
+    }).then(() => mainPrompt())
+}
+
+
+
 
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
@@ -98,7 +155,7 @@ function mainPrompt() {
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
 // Date Created: 01/01/2023
-// Date Modified: 01/01/2023
+// Date Modified: 01/18/2023
 // Name: quit
 // Purpose: quits out of prompt
 // Input: NA
@@ -106,7 +163,7 @@ function mainPrompt() {
 // Notes: NA
 // -----------------Function Definitions--------------------
 function quit () {
-//    return prompt.ui.close
+   mainPrompt.ui.close();
   }
 
 // -----------------Function Definitions--------------------
@@ -164,75 +221,25 @@ function quit () {
     }).then(() => mainPrompt());
   }
 
-// -----------------Function Definitions--------------------
-// Author: Immanuel Williams PhD 
-// Date Created: 01/01/2023
-// Date Modified: 01/01/2023
-// Name: viewAllDepartments
-// Purpose: Displays all departments
-// Input: NA
-// Output: NA
-// Notes: NA
-// -----------------Function Definitions--------------------
-function viewAllDepartments() {
-    db.findAllDepartments().then((rows) => {
-        let departments = rows;
-        console.table(departments)
-    }).then(() => mainPrompt())
-
-
-      
-}
 
 
 
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
-// Date Created: 01/01/2023
-// Date Modified: 01/01/2023
-// Name: viewAllRoles
-// Purpose: Displays all roles
+// Date Created: 01/05/2023
+// Date Modified: 01/18/2023
+// Name: addEmployee
+// Purpose: adds new Employee
 // Input: NA
 // Output: NA
 // Notes: NA
 // -----------------Function Definitions--------------------
-function viewAllRoles() {
-    db.findAllRoles().then((rows) => {
-        let roles = rows;
-        console.table(roles)
-    }).then(() => mainPrompt())
-}
-
-
-// -----------------Function Definitions--------------------
-// Author: Immanuel Williams PhD 
-// Date Created: 12/31/2022
-// Date Modified: 01/01/2023
-// Name: viewAllEmployees
-// Purpose: Displays all employees
-// Input: NA
-// Output: NA
-// Notes: NA
-// -----------------Function Definitions--------------------
-function viewAllEmployees() {
-    db.findAllEmployees().then((rows) => {
-        let employees = rows;
-        console.table(employees)
-    }).then(() => mainPrompt())
-}
-
-
-
-
-
-
-
 function addEmployee() {
 
     prompt([
         {
             name: "first_name",
-            message: "WHa first name?",
+            message: "What first name?",
         },
         {
             name: "last_name",
@@ -292,6 +299,16 @@ function addEmployee() {
 
 }
 
+// -----------------Function Definitions--------------------
+// Author: Immanuel Williams PhD 
+// Date Created: 01/18/2023
+// Date Modified: 01/18/2023
+// Name: updateEmployee
+// Purpose: Updates employee info
+// Input: NA
+// Output: NA
+// Notes: NA
+// -----------------Function Definitions--------------------
 
 
 mainPrompt();

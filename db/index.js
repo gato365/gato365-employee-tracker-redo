@@ -7,26 +7,19 @@ class DB {
 
     //1. Department
     findAllDepartments() {
-
         return new Promise((resolve) => { // Question 2: Why is there not are reject?
             connection.query("select * from department", function (err, results) {
-
                 resolve(results);
             });
         });
-
-
     }
     //2. Role
     findAllRoles() {
-
-
         return new Promise((resolve) => { // Question 2: Why is there not are reject?
             connection.query("select * from role", function (err, results) {
                 resolve(results);
             });
         });
-
     }
     //3. Employee
     findAllEmployees() {
