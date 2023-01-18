@@ -86,6 +86,16 @@ class DB {
         // return this.connection.promise().query(
         //     `UPDATE employee SET role_id = ? WHERE id = ?`
         // );
+
+
+        return new Promise((resolve) => {
+            connection.query("UPDATE employee SET role_id  = ? WHERE = ?", role_id,
+                function (err, results) {
+                    if (err) throw err
+                    console.log(results)
+                    resolve(results);
+                });
+        });
     }
 
 }
