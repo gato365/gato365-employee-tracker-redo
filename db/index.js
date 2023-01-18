@@ -68,15 +68,24 @@ class DB {
 
     //6. Add Employee
     createEmployee(employee) {
-        return this.connection.promise().query(
-            "INSERT INTO employee SET ?", employee);
+        // return this.connection.promise().query(
+        //     "INSERT INTO employee SET ?", employee);
+
+        return new Promise((resolve) => {
+            connection.query("INSERT INTO employee SET ?", employee,
+                function (err, results) {
+                    if (err) throw err
+                    console.log(results)
+                    resolve(results);
+                });
+        });
     }
 
     //7. Update Employee
     updateEmployee(employee, role_id) {
-        return this.connection.promise().query(
-            `UPDATE employee SET role_id = ? WHERE id = ?`
-        );
+        // return this.connection.promise().query(
+        //     `UPDATE employee SET role_id = ? WHERE id = ?`
+        // );
     }
 
 }

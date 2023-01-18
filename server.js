@@ -263,8 +263,10 @@ function addEmployee() {
         let firstname = res.first_name;
         let lastname = res.last_name;
 
-        db.findAllRoles().then(([rows]) => {
+        db.findAllRoles().then((rows) => {
             let roles = rows;
+
+            console.log(roles);
             const roleChoices = roles.map(({ id, title }) => ({
                 name: title,
                 value: id
@@ -276,9 +278,9 @@ function addEmployee() {
                 choices: roleChoices
             }).then(res => {
                 let roleId = res.roleId;
-                db.findAllEmployees().then(([rows]) => {
+                db.findAllEmployees().then((rows) => {
                     let employee = rows;
-                    const managerChoices = employees.map(({ id, first_name, last_name }) => ({
+                    const managerChoices = employee.map(({ id, first_name, last_name }) => ({
                         name: `${first_name} ${last_name}`,
                         value: id
                     }));
@@ -299,9 +301,11 @@ function addEmployee() {
                             last_name: lastname
                         }
                         db.createEmployee(employee);
-                    }).then(() =>
+                    }).then(() => {
                         console.log(`Added ${firstname} ${lastname} to the database`)
-                    ).then(() => mainPrompt)
+                        mainPrompt();
+                    }
+                    )
                 })
             })
 
@@ -324,6 +328,93 @@ function addEmployee() {
 // Notes: NA
 // -----------------Function Definitions--------------------
 
+
+
+
+
+
+function updateEmployee() {
+
+
+    db.findAllEmployees().then((rows) => {
+        let employees = rows;
+        console.log(employees);
+        employees = employees.map((item) =>
+        ({
+            
+            name: `${item.first_name} ${item.last_name}`,
+            value: item.employee_ids
+        }))
+        console.log(employees);
+
+        // prompt([
+        //     {
+        //         name: "first_name",
+        //         message: "What is the new first name?",
+        //     },
+        //     {
+        //         name: "last_name",
+        //         message: "What is the new last name?",
+        //     }
+        // ]).then(res => {
+        //     let firstname = res.first_name;
+        //     let lastname = res.last_name;
+
+        //     db.findAllRoles().then((rows) => {
+        //         let roles = rows;
+
+        //         console.log(roles);
+        //         const roleChoices = roles.map(({ id, title }) => ({
+        //             name: title,
+        //             value: id
+        //         }));
+        //         prompt({
+        //             type: "list",
+        //             name: "roleId",
+        //             message: "What is the new employee role?",
+        //             choices: roleChoices
+        //         }).then(res => {
+        //             let roleId = res.roleId;
+        //             db.findAllEmployees().then((rows) => {
+        //                 let employee = rows;
+        //                 const managerChoices = employee.map(({ id, first_name, last_name }) => ({
+        //                     name: `${first_name} ${last_name}`,
+        //                     value: id
+        //                 }));
+        //                 managerChoices.unshift({
+        //                     name: "None",
+        //                     value: null
+        //                 });
+        //                 prompt({
+        //                     type: "list",
+        //                     name: "managerId",
+        //                     message: "Who is the employee's new manager?",
+        //                     choices: managerChoices
+        //                 }).then(res => {
+        //                     let employee = {
+        //                         manager_id: res.managerId,
+        //                         role_id: roleId,
+        //                         first_name: firstname,
+        //                         last_name: lastname
+        //                     }
+        //                     db.createEmployee(employee);
+        //                 }).then(() => {
+        //                     console.log(`Added ${firstname} ${lastname} to the database`)
+        //                     mainPrompt();
+        //                 }
+        //                 )
+        //             })
+        //         })
+
+
+
+
+        //     });
+        // });
+
+    });
+
+}
 
 mainPrompt();
 
