@@ -365,16 +365,20 @@ function updateEmployee() {
                 choices: employees
             }
         ]).then(res => {
-            // let firstname = res.first_name;
-            // let lastname = res.last_name;
+            let firstname;
+            let lastname;
             let empId = res.empId;
             console.log(empId);
+            // Find employee by id
+           
+
+
             // Find employee by id
             db.findEmployeeById(empId).then((rows) => {
                 let employee = rows[0];
                 console.log(employee);
-                let firstname = employee.first_name;
-                let lastname = employee.last_name;
+                firstname = employee.first_name;
+                lastname = employee.last_name;
                 console.log(firstname);
                 console.log(lastname);
             }).then(() => {
@@ -395,20 +399,23 @@ function updateEmployee() {
                         let roleId = res.roleId;
                         db.findAllEmployees().then((rows) => {
                             let employee = rows;
-                            const managerChoices = employee.map(({ id, first_name, last_name }) => ({
+                            const managerChoices = employee.map(({ employee_ids,first_name,last_name }) => ({
                                 name: `${first_name} ${last_name}`,
-                                value: id
+                                value: employee_ids
                             }));
+                            console.log(managerChoices);
                             managerChoices.unshift({
                                 name: "None",
                                 value: null
                             });
+                            
                             prompt({
                                 type: "list",
                                 name: "managerId",
                                 message: "\nWho is the employee's new manager?",
                                 choices: managerChoices
                             }).then(res => {
+                                // console.log(res);
                                 let employee = {
                                     manager_id: res.managerId,
                                     role_id: roleId,
@@ -417,11 +424,11 @@ function updateEmployee() {
                                 }
                                 console.log(employee)
                                 db.updateEmployee(employee.role_id);
-                            }).then(() => {
-                                console.log(`Added ${firstname} ${lastname} to the database`)
-                                // mainPrompt();
-                            }
-                            )
+                                
+                            }).then(async () => {
+                                 console.log(`Updated ${firstname} ${lastname} to the database`)
+                            //    mainPrompt();
+                            }); //.then(() => mainPrompt());
                         })
                     })
 
@@ -433,7 +440,7 @@ function updateEmployee() {
                 });
             });
 
-        }).then(() => mainPrompt());
+        }).then(async () => mainPrompt());
 
     });
 
