@@ -40,64 +40,73 @@ class DB {
 
 
     }
-    //4. Add Department
-    createDepartment(department) {
-        return new Promise((resolve) => {
-            connection.query("INSERT INTO department SET ?", department,
-                function (err, results) {
-                    if (err) throw err
-                    console.log(results)
-                    resolve(results);
-                });
+
+    findEmployeeById(id) {
+        return new Promise((resolve) => { // Question 2: Why is there not are reject?
+            connection.query("select * from employee where id = ?", id, function (err, results) {
+                resolve(results);
+            });
         });
     }
 
-    //5. Add Role
-    createRole(role) {
-        return new Promise((resolve) => {
-            connection.query("INSERT INTO role SET ?", role,
-                function (err, results) {
-                    if (err) throw err
-                    console.log(results)
-                    resolve(results);
-                });
-        });
+        //4. Add Department
+        createDepartment(department) {
+            return new Promise((resolve) => {
+                connection.query("INSERT INTO department SET ?", department,
+                    function (err, results) {
+                        if (err) throw err
+                        console.log(results)
+                        resolve(results);
+                    });
+            });
+        }
+
+        //5. Add Role
+        createRole(role) {
+            return new Promise((resolve) => {
+                connection.query("INSERT INTO role SET ?", role,
+                    function (err, results) {
+                        if (err) throw err
+                        console.log(results)
+                        resolve(results);
+                    });
+            });
+        }
+
+
+
+        //6. Add Employee
+        createEmployee(employee) {
+            // return this.connection.promise().query(
+            //     "INSERT INTO employee SET ?", employee);
+
+            return new Promise((resolve) => {
+                connection.query("INSERT INTO employee SET ?", employee,
+                    function (err, results) {
+                        if (err) throw err
+                        console.log(results)
+                        resolve(results);
+                    });
+            });
+        }
+
+        //7. Update Employee
+        updateEmployee(employee, role_id) {
+            // return this.connection.promise().query(
+            //     `UPDATE employee SET role_id = ? WHERE id = ?`
+            // );
+
+
+            return new Promise((resolve) => {
+                connection.query("UPDATE employee SET role_id  = ? WHERE = ?", role_id,
+                    function (err, results) {
+                        if (err) throw err
+                        console.log(results)
+                        resolve(results);
+                    });
+            });
+        }
+
     }
-
-
-
-    //6. Add Employee
-    createEmployee(employee) {
-        // return this.connection.promise().query(
-        //     "INSERT INTO employee SET ?", employee);
-
-        return new Promise((resolve) => {
-            connection.query("INSERT INTO employee SET ?", employee,
-                function (err, results) {
-                    if (err) throw err
-                    console.log(results)
-                    resolve(results);
-                });
-        });
-    }
-
-    //7. Update Employee
-    updateEmployee(employee, role_id) {
-        // return this.connection.promise().query(
-        //     `UPDATE employee SET role_id = ? WHERE id = ?`
-        // );
-
-
-        return new Promise((resolve) => {
-            connection.query("UPDATE employee SET role_id  = ? WHERE = ?", role_id,
-                function (err, results) {
-                    if (err) throw err
-                    console.log(results)
-                    resolve(results);
-                });
-        });
-    }
-
-}
 
 module.exports = DB;

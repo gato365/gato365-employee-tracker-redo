@@ -359,66 +359,80 @@ function updateEmployee() {
 
 
             {
-                name: "whole_name",
+                name: "empId",
                 type: "list",
-                message: "What is the new last name?",
+                message: "Who are we updating?",
                 choices: employees
             }
         ]).then(res => {
-            let firstname = res.first_name;
-            let lastname = res.last_name;
+            // let firstname = res.first_name;
+            // let lastname = res.last_name;
+            let empId = res.empId;
+            console.log(empId);
+            // Find employee by id
+            db.findEmployeeById(empId).then((rows) => {
+                let employee = rows[0];
+                console.log(employee);
+                let firstname = employee.first_name;
+                let lastname = employee.last_name;
+                console.log(firstname);
+                console.log(lastname);
+            }).then(() => {
+                db.findAllRoles().then((rows) => {
+                    let roles = rows;
 
-            db.findAllRoles().then((rows) => {
-                let roles = rows;
-
-                // console.log(roles);
-                const roleChoices = roles.map(({ id, title }) => ({
-                    name: title,
-                    value: id
-                }));
-                prompt({
-                    type: "list",
-                    name: "roleId",
-                    message: "\nWhat is the  employee new role?",
-                    choices: roleChoices
-                }).then(res => {
-                    let roleId = res.roleId;
-                    db.findAllEmployees().then((rows) => {
-                        let employee = rows;
-                        const managerChoices = employee.map(({ id, first_name, last_name }) => ({
-                            name: `${first_name} ${last_name}`,
-                            value: id
-                        }));
-                        managerChoices.unshift({
-                            name: "None",
-                            value: null
-                        });
-                        prompt({
-                            type: "list",
-                            name: "managerId",
-                            message: "\nWho is the employee's new manager?",
-                            choices: managerChoices
-                        }).then(res => {
-                            let employee = {
-                                manager_id: res.managerId,
-                                role_id: roleId,
-                                first_name: firstname,
-                                last_name: lastname
+                    // console.log(roles);
+                    const roleChoices = roles.map(({ id, title }) => ({
+                        name: title,
+                        value: id
+                    }));
+                    prompt({
+                        type: "list",
+                        name: "roleId",
+                        message: "\nWhat is the employee new role?",
+                        choices: roleChoices
+                    }).then(res => {
+                        let roleId = res.roleId;
+                        db.findAllEmployees().then((rows) => {
+                            let employee = rows;
+                            const managerChoices = employee.map(({ id, first_name, last_name }) => ({
+                                name: `${first_name} ${last_name}`,
+                                value: id
+                            }));
+                            managerChoices.unshift({
+                                name: "None",
+                                value: null
+                            });
+                            prompt({
+                                type: "list",
+                                name: "managerId",
+                                message: "\nWho is the employee's new manager?",
+                                choices: managerChoices
+                            }).then(res => {
+                                let employee = {
+                                    manager_id: res.managerId,
+                                    role_id: roleId,
+                                    first_name: firstname,
+                                    last_name: lastname
+                                }
+                                console.log(employee)
+                                db.updateEmployee(employee.role_id);
+                            }).then(() => {
+                                console.log(`Added ${firstname} ${lastname} to the database`)
+                                // mainPrompt();
                             }
-                            console.log(employee)
-                            db.updateEmployee(employee.role_id);
-                        }).then(() => {
-                            console.log(`Added ${firstname} ${lastname} to the database`)
-                            // mainPrompt();
-                        }
-                        )
+                            )
+                        })
                     })
-                })
 
 
 
 
+
+
+                });
             });
+
         }).then(() => mainPrompt());
 
     });
