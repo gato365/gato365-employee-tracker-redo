@@ -185,7 +185,7 @@ function addDepartment() {
         }
     ]).then(async (res) => {
         let newDept = await db.createDepartment(res);
-        console.log(newDept)
+        // console.log(newDept)
     }).then(() => mainPrompt())
 }
 
@@ -205,14 +205,14 @@ function addRole() {
 
     db.findAllDepartments().then((rows) => {
         let departments = rows;
-        console.log(departments);
+        // console.log(departments);
         departments = departments.map((item) =>
         ({
             value: item.id,
             name: item.name
         }))
 
-        console.log(departments);
+        // console.log(departments);
         prompt([
             {
                 name: "title",
@@ -230,7 +230,7 @@ function addRole() {
             }
         ]).then(async (res) => {
             let roleInfo = await db.createRole(res);
-            console.log(roleInfo)
+            // console.log(roleInfo)
         }).then(() => mainPrompt())
     });
 }
@@ -266,7 +266,7 @@ function addEmployee() {
         db.findAllRoles().then((rows) => {
             let roles = rows;
 
-            console.log(roles);
+            // console.log(roles);
             const roleChoices = roles.map(({ id, title }) => ({
                 name: title,
                 value: id
@@ -303,7 +303,7 @@ function addEmployee() {
                         db.createEmployee(employee);
                     }).then(() => {
                         console.log(`Added ${firstname} ${lastname} to the database`)
-                        mainPrompt();
+                        // mainPrompt();
                     }
                     )
                 })
@@ -338,7 +338,7 @@ function updateEmployee() {
 
     db.findAllEmployees().then((rows) => {
         let employees = rows;
-        console.log(employees);
+        // console.log(employees);
         employees = employees.map((item) =>
         ({
             
@@ -371,7 +371,7 @@ function updateEmployee() {
             db.findAllRoles().then((rows) => {
                 let roles = rows;
 
-                console.log(roles);
+                // console.log(roles);
                 const roleChoices = roles.map(({ id, title }) => ({
                     name: title,
                     value: id
@@ -405,7 +405,7 @@ function updateEmployee() {
                                 first_name: firstname,
                                 last_name: lastname
                             }
-                            console.log(employee)
+                            // console.log(employee)
                             db.updateEmployee(employee.role_id);
                         }).then(() => {
                             console.log(`Added ${firstname} ${lastname} to the database`)
