@@ -90,19 +90,26 @@ class DB {
         });
     }
 
-    //7. Update Employee
-  
+    //7. Update Employee, role, manager
+    updateEmployeeRole(employeeId, roleId) {
 
-    updateEmployee(employee, role_id) {
         return new Promise((resolve) => {
-            connection.query("UPDATE employee SET role_id  = ? WHERE id = ?", [role_id, employee],
+            connection.query("UPDATE employee SET role_id = ? WHERE id = ?", [roleId, employeeId],
                 function (err, results) {
                     if (err) throw err
                     console.log(results)
                     resolve(results);
                 });
         });
-    }
+    
+
+
+    // return this.connection.promise().query(
+    //     "UPDATE employee SET role_id = ? WHERE id = ?", [roleId, employeeId]);
+}
+
+
+ 
 
 }
 

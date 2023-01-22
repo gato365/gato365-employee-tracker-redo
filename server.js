@@ -330,10 +330,80 @@ function addEmployee() {
 // Notes: NA
 // -----------------Function Definitions--------------------
 function updateEmployee() {
-   
+
+    // Get all employees
+    db.findAllEmployees().then((rows) => {
+        let employees = rows;
+        // console.log(employees);
+        const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+            name: `${first_name} ${last_name}`,
+            value: id
+        }));
+        // Get all roles
+        db.findAllRoles().then((rows) => {
+            let roles = rows;
+            // console.log(roles);
+            const roleChoices = roles.map(({ id, title }) => ({
+                name: title,
+                value: id
+            }));
+
+            // Get all managers
+            db.findAllEmployees().then((rows) => {
+                let managers = rows;
+                // console.log(managers);
+                const managerChoices = managers.map(({ id, first_name, last_name }) => ({
+                    name: `${first_name} ${last_name}`,
+                    value: id
+                }));
+                managerChoices.unshift({
+                    name: "None",
+                    value: null
+                });
+                // Prompt user to select employee, new role, & new manager
+                prompt([
+                    {
+                        type: "list",
+                        name: "employeeId",
+                        message: "Which employee would you like to update?",
+                        choices: employeeChoices
+                    },
+                    {
+                        type: "list",
+                        name: "roleId",
+                        message: "What is the employee's new role?",
+                        choices: roleChoices
+                    },
+                    {
+                        type: "list",
+                        name: "managerId",
+                        message: "Who is the employee's new manager?",
+                        choices: managerChoices
+                    }
+                ]).then(res => {
+                    // Update employee
+                    let employee = {
+                        manager_id: res.managerId,
+                        role_id: res.roleId,
+                        id: res.employeeId
+                    }
+                    db.updateEmployeeRole(res.employeeId,res.roleId);
+                }).then(() => {
+                    // Return to main menu
+                    console.log(`Updated employee`)
+                    // mainPrompt();
+                }
+                )
+            })
+        });
+    });
 
 
-    
+
+
+
+
+
 
 
 
