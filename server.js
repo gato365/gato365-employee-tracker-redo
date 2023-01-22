@@ -427,7 +427,7 @@ function updateEmployee() {
                                 
                             }).then(async () => {
                                  console.log(`Updated ${firstname} ${lastname} to the database`)
-                            //    mainPrompt();
+                               mainPrompt();
                             }); //.then(() => mainPrompt());
                         })
                     })
