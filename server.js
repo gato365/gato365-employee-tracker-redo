@@ -307,7 +307,7 @@ function addEmployee() {
                     }
                     )
                 })
-            })
+            }).then(() => mainPrompt());
 
 
 
@@ -341,7 +341,7 @@ function updateEmployee() {
         // console.log(employees);
         employees = employees.map((item) =>
         ({
-            
+
             name: `${item.first_name} ${item.last_name}`,
             value: item.employee_ids
         }))
@@ -379,7 +379,7 @@ function updateEmployee() {
                 prompt({
                     type: "list",
                     name: "roleId",
-                    message: "What is the new employee role?",
+                    message: "\nWhat is the  employee new role?",
                     choices: roleChoices
                 }).then(res => {
                     let roleId = res.roleId;
@@ -396,7 +396,7 @@ function updateEmployee() {
                         prompt({
                             type: "list",
                             name: "managerId",
-                            message: "Who is the employee's new manager?",
+                            message: "\nWho is the employee's new manager?",
                             choices: managerChoices
                         }).then(res => {
                             let employee = {
@@ -405,11 +405,11 @@ function updateEmployee() {
                                 first_name: firstname,
                                 last_name: lastname
                             }
-                            // console.log(employee)
+                            console.log(employee)
                             db.updateEmployee(employee.role_id);
                         }).then(() => {
                             console.log(`Added ${firstname} ${lastname} to the database`)
-                            mainPrompt();
+                            // mainPrompt();
                         }
                         )
                     })
@@ -419,7 +419,7 @@ function updateEmployee() {
 
 
             });
-        });
+        }).then(() => mainPrompt());
 
     });
 
