@@ -111,6 +111,10 @@ function mainPrompt() {
                     value: "UPDATE_EMPLOYEE_ROLE"
                 },
                 {
+                    name: "Test",
+                    value: "Test"
+                },
+                {
                     name: "Quit",
                     value: "QUIT"
                 }
@@ -142,6 +146,9 @@ function mainPrompt() {
             case "UPDATE_EMPLOYEE_ROLE":
                 updateEmployee();
                 break;
+            case "Test":
+                test();
+                break;
             default:
                 quit();
 
@@ -151,6 +158,14 @@ function mainPrompt() {
 
 
 }
+
+function test() {
+    db.findAllEmployees().then(() => {
+        console.log("test");
+        mainPrompt()
+    })
+}
+
 
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
@@ -327,12 +342,6 @@ function addEmployee() {
 // Output: NA
 // Notes: NA
 // -----------------Function Definitions--------------------
-
-
-
-
-
-
 function updateEmployee() {
 
 
@@ -370,7 +379,7 @@ function updateEmployee() {
             let empId = res.empId;
             console.log(empId);
             // Find employee by id
-           
+
 
 
             // Find employee by id
@@ -399,7 +408,7 @@ function updateEmployee() {
                         let roleId = res.roleId;
                         db.findAllEmployees().then((rows) => {
                             let employee = rows;
-                            const managerChoices = employee.map(({ employee_ids,first_name,last_name }) => ({
+                            const managerChoices = employee.map(({ employee_ids, first_name, last_name }) => ({
                                 name: `${first_name} ${last_name}`,
                                 value: employee_ids
                             }));
@@ -408,7 +417,7 @@ function updateEmployee() {
                                 name: "None",
                                 value: null
                             });
-                            
+
                             prompt({
                                 type: "list",
                                 name: "managerId",
@@ -424,10 +433,10 @@ function updateEmployee() {
                                 }
                                 console.log(employee)
                                 db.updateEmployee(employee.role_id);
-                                
+
                             }).then(async () => {
-                                 console.log(`Updated ${firstname} ${lastname} to the database`)
-                               mainPrompt();
+                                console.log(`Updated ${firstname} ${lastname} to the database`)
+                                mainPrompt();
                             }); //.then(() => mainPrompt());
                         })
                     })
@@ -438,12 +447,15 @@ function updateEmployee() {
 
 
                 });
+
             });
 
-        }).then(async () => mainPrompt());
+        });
+
+
 
     });
-
+    mainPrompt();
 }
 
 mainPrompt();
