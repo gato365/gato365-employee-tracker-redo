@@ -334,10 +334,10 @@ function updateEmployee() {
     // Get all employees
     db.findAllEmployees().then((rows) => {
         let employees = rows;
-        // console.log(employees);
-        const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+        console.log(employees);
+        const employeeChoices = employees.map(({ employee_ids, first_name, last_name }) => ({
             name: `${first_name} ${last_name}`,
-            value: id
+            value: employee_ids
         }));
         // Get all roles
         db.findAllRoles().then((rows) => {
@@ -352,15 +352,18 @@ function updateEmployee() {
             db.findAllEmployees().then((rows) => {
                 let managers = rows;
                 // console.log(managers);
-                const managerChoices = managers.map(({ id, first_name, last_name }) => ({
+                const managerChoices = managers.map(({ employee_ids, first_name, last_name }) => ({
                     name: `${first_name} ${last_name}`,
-                    value: id
+                    value: employee_ids
                 }));
                 managerChoices.unshift({
                     name: "None",
                     value: null
                 });
                 // Prompt user to select employee, new role, & new manager
+
+
+
                 prompt([
                     {
                         type: "list",
@@ -380,6 +383,7 @@ function updateEmployee() {
                         message: "Who is the employee's new manager?",
                         choices: managerChoices
                     }
+                    
                 ]).then(res => {
                     // Update employee
                     let employee = {
@@ -387,11 +391,13 @@ function updateEmployee() {
                         role_id: res.roleId,
                         id: res.employeeId
                     }
-                    db.updateEmployeeRole(res.employeeId,res.roleId);
+                    console.log(res);
+
+                    return db.updateEmployeeRole(res.employeeId,res.roleId);
                 }).then(() => {
                     // Return to main menu
                     console.log(`Updated employee`)
-                    // mainPrompt();
+                    mainPrompt();
                 }
                 )
             })
@@ -400,15 +406,8 @@ function updateEmployee() {
 
 
 
-
-
-
-
-
-
-
-
 }
+
 
 mainPrompt();
 
