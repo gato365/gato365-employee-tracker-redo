@@ -243,7 +243,7 @@ function addRole() {
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
 // Date Created: 01/05/2023
-// Date Modified: 01/18/2023
+// Date Modified: 01/23/2023
 // Name: addEmployee
 // Purpose: adds new Employee
 // Input: NA
@@ -282,9 +282,9 @@ function addEmployee() {
                 let roleId = res.roleId;
                 db.findAllEmployees().then((rows) => {
                     let employee = rows;
-                    const managerChoices = employee.map(({ id, first_name, last_name }) => ({
+                    const managerChoices = employee.map(({ employee_ids, first_name, last_name }) => ({
                         name: `${first_name} ${last_name}`,
-                        value: id
+                        value: employee_ids
                     }));
 
 
