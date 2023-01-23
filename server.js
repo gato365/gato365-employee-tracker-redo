@@ -286,10 +286,15 @@ function addEmployee() {
                         name: `${first_name} ${last_name}`,
                         value: id
                     }));
+
+
+
                     managerChoices.unshift({
                         name: "None",
                         value: null
                     });
+
+                    console.log(managerChoices);
                     prompt({
                         type: "list",
                         name: "managerId",
@@ -302,14 +307,14 @@ function addEmployee() {
                             first_name: firstname,
                             last_name: lastname
                         }
-                        db.createEmployee(employee);
+                        return db.createEmployee(employee);
                     }).then(() => {
                         console.log(`Added ${firstname} ${lastname} to the database`)
-                        // mainPrompt();
+                        mainPrompt();
                     }
                     )
                 })
-            }).then(() => mainPrompt());
+            });//.then(() => mainPrompt());
 
 
 
@@ -322,7 +327,7 @@ function addEmployee() {
 // -----------------Function Definitions--------------------
 // Author: Immanuel Williams PhD 
 // Date Created: 01/18/2023
-// Date Modified: 01/22/2023
+// Date Modified: 01/23/2023
 // Name: updateEmployee
 // Purpose: Updates employee info
 // Input: NA
